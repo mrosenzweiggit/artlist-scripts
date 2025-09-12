@@ -100,37 +100,3 @@ def ingest_endpoint_loc(endpoint_name, url):
             page += 1
         else:
             break
-
-
-# ----------------------------
-# Run script
-# ----------------------------
-# if __name__ == "__main__":
-#     main()
-
-# def main():
-#     for name, url in ENDPOINTS.items():
-#         print(f"\nFetching data from {name}...")
-#         ingest_endpoint_loc(name, url)
-#     print("\n✅ All endpoints extracted successfully!")
-#
-# # ----------------------------
-# # Run script
-# # ----------------------------
-# if __name__ == "__main__":
-#     # ----------------------------
-#     # Test fetch_with_backoff
-#     # ----------------------------
-#     test_url = "https://rickandmortyapi.com/api/character"
-#     try:
-#         print(f"Fetching data from {test_url}...")
-#         data = fetch_with_backoff(test_url, max_retries=3)
-#         print("✅ Fetch successful!")
-#         print("Keys in response:", list(data.keys()))
-#         print("Number of results on this page:", len(data.get("results", [])))
-#     except Exception as e:
-#         print("❌ Fetch failed:", e)
-#     # ----------------------------
-#     # Full extraction to Downloads
-#     # ----------------------------
-#     main()
