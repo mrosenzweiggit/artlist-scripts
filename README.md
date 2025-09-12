@@ -5,7 +5,8 @@
 2. Develop a Python script to extract data from the API.  
 3. Validate that the Python extraction works correctly.  
 4. Implement ingestion into a schema named `DATA_LAKE`.  
-5. Create scripts to populate the DWH tables from the raw data in `DATA_LAKE`.  
+5. Create scripts to populate the DWH tables from the raw data in `DATA_LAKE`.
+6. Validate the model
 
 ---
 
