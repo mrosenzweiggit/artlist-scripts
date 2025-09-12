@@ -1,3 +1,5 @@
+set var_start_time = (select date_from from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'DIM_CHARACTER');
+set var_end_time = (select date_to from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'DIM_CHARACTER');
 
 MERGE INTO ARTLIST_DB.DWH.DIM_CHARACTER AS target
 USING (
@@ -8,7 +10,7 @@ USING (
              LATERAL FLATTEN(input => RAW_JSON:results)
         WHERE TRUE
             -- AND character_json:id::INT IN (1)
-            AND fetched_at >= '1900-01-01'
+            AND fetched_at between $var_start_time and $var_end_time
     )
     SELECT
         character_json:created::TIMESTAMP       AS api_created,
@@ -77,15 +79,4 @@ WHEN NOT MATCHED THEN INSERT (
     source.api_created,
     source.sfk_updated
 );
-
-select
-      ft.character_id
-    , dc.name
-    , dc.status
-from artlist_db.dwh.fact_episode_characters ft
-join artlist_db.dwh.dim_character dc on (ft.character_sk = dc.character_sk)
-join artlist_db.dwh.dim_episode de on (ft.episode_sk = de.episode_sk)
-where true
-    and de.episode_name = 'Rickdependence Spray'
-;
 

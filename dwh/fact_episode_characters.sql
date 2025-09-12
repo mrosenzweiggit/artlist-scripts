@@ -1,3 +1,5 @@
+set var_start_time = (select date_from from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'FACT_CHARACTER_EPISODES');
+set var_end_time = (select date_to from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'FACT_CHARACTER_EPISODES');
 
 MERGE INTO artlist_db.dwh.fact_episode_characters AS tgt
 USING (
@@ -8,7 +10,7 @@ USING (
         FROM artlist_db.data_lake.raw_episodes,
         LATERAL FLATTEN(input => raw_json:results)
         WHERE TRUE
-            AND fetched_at >= '1900-01-01'
+            AND fetched_at between $var_start_time and $var_end_time
     )
 
     , cte_characters_eposides AS (

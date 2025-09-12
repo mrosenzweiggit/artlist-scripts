@@ -1,3 +1,5 @@
+set var_start_time = (select date_from from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'DIM_EPISODE');
+set var_end_time = (select date_to from ARTLIST_DB.MNG.ETL_MANAGEMENT where table_name = 'DIM_EPISODE');
 
 MERGE INTO ARTLIST_DB.DWH.DIM_EPISODE AS target
 USING (
@@ -8,7 +10,7 @@ USING (
              LATERAL FLATTEN(input => RAW_JSON:results)
         WHERE TRUE
             -- AND episode_json:id::INT in (41)
-            AND fetched_at >= '1900-01-01'
+            AND fetched_at between $var_start_time and $var_end_time
     )
     SELECT
         episode_json:id::INT         AS episode_id,
