@@ -95,17 +95,12 @@ def ingest_endpoint_loc(endpoint_name, url):
 
         print(f"Saved page {page} JSON at: {local_filename}")
 
-        # Verificar si hay más páginas
+        # Check if there is next page
         if "info" in data and data["info"].get("next"):
             page += 1
         else:
             break
 
-
-# ----------------------------
-# Main function
-# ----------------------------
-#
 
 # ----------------------------
 # Run script
