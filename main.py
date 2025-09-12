@@ -1,4 +1,7 @@
+import snowflake
+
 from api_services import api_extract
+from api_services.api_extract import ENDPOINTS, ingest_endpoint
 
 
 def main():
